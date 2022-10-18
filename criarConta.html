@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health - Cadastro</title>
+    <link rel="stylesheet" href="styleCriarConta.css">
+    <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+    <script src="js/script1.js"></script>
+    
+</head>
+<body>   
+        <header class="header">
+            <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
+        </header>
+        <main class="main">
+            <form id="form-registro"action="">
+                <div class="row">
+                    <label for="nome">Nome completo</label>
+                    <input id="nome" type="text" name="nome" placeholder="Jhonatan Sampaio" />
+                </div>
+                <div class="row">
+                    <label for="sexo">Sexo</label>
+                    <div id="sexo">
+                      <input id="sexo-masculino" type="radio" name="sexo" value="masculino" />
+                      <label class="lblsexo" for="sexo-masculino">Masculino</label>
+                      <input id="sexo-feminino" type="radio" name="sexo" value="feminino" />
+                      <label class="lblsexo" for="sexo-feminino">Feminino</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="nascimento">Data nascimento</label>
+                    <input class="form-nascimento" type="date" name="nascimento" />
+                </div>
+                <div class="row">
+                    <label>E-mail</label>
+                    <input type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
+                </div>
+                <div class="row">
+                    <label>Senha</label>
+                    <input id="password" type="password" name="password" placeholder="************" />
+                </div>
+                <div class="row">
+                    <label>Repetir senha</label>
+                    <input id="confirmpassword" type="password" name="passwordConfirm" placeholder="************"/>
+                </div>
+                <p id="error" class="erro" >Senhas nao conferem!</p>
+                <div class="btns">
+                    <a id="btn-cadastrar" class="btn-cadastrar" onclick="validator()" href='#'>Cadastrar</a>
+                </div>
+            </form>   
+        </main> 
+        <script src="js/script1.js"></script>     
+        
+</body>
+</html>

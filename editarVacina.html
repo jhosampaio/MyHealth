@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health - Nova Vacina</title>
+    <link rel="stylesheet" href="styleEditarVacina.css">
+    <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+    <script src="js/script1.js"></script>
+    
+</head>
+<body>    
+        <header class="header">
+            <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
+            <nav>
+                <ul class="menu">
+                    <li>
+                        <a class="btn-minhasVacinas" href="home.html">Minhas Vacinas</a>
+                    </li>
+                    <li>
+                        <a class="btn-logout" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>        
+        <main class="main">            
+            <form action="">                
+                 <ul class="excluir">
+                    <li class="btn-Excluir"> <img class="img-trash" src="images/trash.png" alt="">Excluir</li>
+                </ul>  
+                <div class="row">
+                    <label for="data">Data de vacinação</label>
+                    <input class="form-data" type="date" name="dataVacinacao" />
+                </div>
+                <div class="row">
+                    <label for="vacina">Vacina</label>
+                    <input id="vacina" type="text" name="nome" placeholder="Hepatite B" />
+                </div>
+                <div class="row">
+                    <label class="label-radio" for="dose">Dose</label>
+                    <div id="dose">
+                      <input id="primeiraDose" type="radio" name="dose" value="primeiraDose" />
+                      <label class="lblDoses" for="primeiraDose">1a. Dose</label>
+                      <input id="segundaDose" type="radio" name="dose" value="segundaDose" />
+                      <label class="lblDoses" for="segundaDose">2a. Dose</label>
+                      <input id="terceiraDose" type="radio" name="dose" value="terceiraDose" />
+                      <label class="lblDoses" for="terceiraDose">3a. Dose</label>
+                      <input id="reforco" type="radio" name="dose" value="Reforco" />
+                      <label class="lblDoses" for="Reforco">Reforco</label>
+                      <input id="doseUnica" type="radio" name="dose" value="doseUnica" />
+                      <label class="lblDoses" for="doseUnica">Dose Unica</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="comprovanteVacina">Comprovante de Vacina</label>
+                    <button class="btn-img" onclick="importData()">Selecionar Imagem...</button>
+                </div>
+                
+                <div class="row">
+                    <label for="data">Próxima vacinação</label>
+                    <input class="form-data" type="date" name="proximaVacinacao"/>              
+                </div>  
+                <div class="row-button">                        
+                    <a class="btn-Salvar" href="home.html">Salvar Alteraçoes</a>
+                </div>            
+            </form> 
+            
+        </main>
+        <div id="conteudo-pop-up" class="conteudo-pop-up">
+            <div class="popup">
+                <h3>Tem certeza que deseja remover essa vacina ?</h3>                  
+                <form class="button-pop-up">
+                    <a href="home.html"><input type="button" class="btn-sim" value="Excluir"></a>
+                    <input type="button" class="btn-cancelar" value="Cancelar">
+                </form>
+            </div>
+        </div> 
+        <script>
+            function iniciaPopUp(popupID){
+                const popup = document.getElementById(popupID);
+                popup.classList.add('mostrar');
+                popup.addEventListener('click', (e) =>{
+                    if(e.target.id  == popupID || e.target.className == 'btn-cancelar'){
+                        popup.classList.remove('mostrar');
+                    }                     
+                });
+            }
+            const btnExcluir = document.querySelector('.btn-Excluir');
+            btnExcluir.addEventListener('click', () => iniciaPopUp('conteudo-pop-up'));  
+            
+            function importData() {
+                let input = document.createElement('input');
+                input.type = 'file';
+                input.onchange = _ => {
+    
+                let files =   Array.from(input.files);
+                console.log(files);
+                };
+                input.click();                
+                }
+        </script>    
+</body>
+</html>

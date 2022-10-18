@@ -1,0 +1,169 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Averia Libre';
+    src: url("fonts/averia-libre.ttf");
+}
+*{
+    font-family: 'Averia Libre';
+}
+:root{
+    --cor1: #8FE1D9;
+    --cor2: #ADD4D0;
+    --cor3: #419ED7;
+    --cor4: #49B976;
+    --cor5: #37BD6D;
+}
+body, ul, li, p{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    
+}
+a{
+    text-decoration: none;
+}
+.header{
+    background-color: var(--cor1);
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    align-items: center;
+    height: 50px;
+    padding: 20px;
+}
+.logo > span {
+    font-size: 48px;
+    color: var(--cor3);
+}
+.menu {
+    margin-left: 10px;
+    display: flex;   
+
+}
+.main{    
+    background-color: var(--cor2);      
+    display: flex;
+    flex-direction: column;  
+    height: calc(100vh - 90px);    
+}
+form{
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    margin: 30px;
+}
+.btn-minhasVacinas {
+    margin: 15px;  
+    padding: 10px;
+    background-color: var(--cor3);
+    color: white;
+    border: 1px solid var(--cor3);    
+}
+.btn-logout {
+    
+    padding: 10px;
+    background-color: var(--cor3);
+    color: white;
+    border: 1px solid var(--cor3);    
+}
+.row{
+    display: flex;
+    flex-direction: row;    
+    margin-bottom:  10px;
+}
+.row > label{
+    width: 307px;
+    text-align: right;
+    margin-right: 10px;
+    color: white;
+    font-size: 18px;
+}
+.row > input{
+    color: var(--cor3);
+    font-size: 18px;
+    width: 198px;
+}
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: var(--cor3);
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+input[type='date']{
+    width: 200px;
+}
+input::placeholder {
+    color: var(--cor3);
+}
+.lblDose{
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+}
+.inputVacina{
+    width: 90px;
+}
+
+
+.row-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom:  10px;
+
+}
+.comprovante{
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    margin-left: 67px;
+}
+.img{
+    
+    width: 200px;
+    height: 150px;    
+}
+.btn-cadastrar{   
+    
+    padding: 10px;
+    background-color: var(--cor4);
+    color: white;
+    border: 1px solid var(--cor5);
+}
+ul{
+    margin: 20px;
+    margin-left: 200px;
+}
+.btn-img{
+    background-color: var(--cor3);        
+    color: white;
+    border: none;
+    width: 200px;
+    padding: 5px;
+    
+    text-align: center;
+    text-decoration: none;
+    display: inline-block;
+    font-size: 16px;
+}

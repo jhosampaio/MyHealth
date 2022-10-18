@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health - Nova Vacina</title>
+    <link rel="stylesheet" href="styleNovaVacina.css">
+    <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+    <script src="js/script1.js"></script>
+    
+</head>
+<body>    
+        <header class="header">
+            <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
+            <nav>
+                <ul class="menu">
+                    <li>
+                        <a class="btn-minhasVacinas" href="home.html">Minhas Vacinas</a>
+                    </li>
+                    <li>
+                        <a class="btn-logout" href="index.html">Logout</a>
+                    </li>
+                </ul>
+            </nav>
+        </header>
+        <main class="main">
+            <form action="">
+                <div class="row">
+                    <label for="data">Data de vacinação</label>
+                    <input class="form-data" type="date" name="dataVacinacao" />
+                </div>
+                <div class="row">
+                    <label for="vacina">Vacina</label>
+                    <input class="inputVacina" id="vacina" type="text" name="nome" placeholder="Hepatite B" />
+                </div>
+                <div class="row">
+                    <label for="dose">Dose</label>
+                    <div id="dose">
+                      <input id="primeiraDose" type="radio" name="dose" value="primeiraDose" />
+                      <label class="lblDose" for="primeiraDose">1a. Dose</label>
+                      <input id="segundaDose" type="radio" name="dose" value="segundaDose" />
+                      <label class="lblDose" for="segundaDose">2a. Dose</label>
+                      <input id="terceiraDose" type="radio" name="dose" value="terceiraDose" />
+                      <label class="lblDose" for="terceiraDose">3a. Dose</label>
+                      <input id="quartaDose" type="radio" name="dose" value="quartaDose" />
+                      <label class="lblDose" for="quartaDose">4a. Dose</label>
+                    </div>
+                </div>
+                <div class="row">
+                    <label for="comprovanteVacina">Comprovante de Vacina</label>
+                    <button class="btn-img" onclick="importData()">Selecionar Imagem...</button>
+                </div>
+                <div class="row">
+                    <label for="data">Próxima vacinação</label>
+                    <input class="form-data" type="date" name="proximaVacinacao" />
+                </div> 
+                <div class="row-button">                        
+                    <a class="btn-cadastrar" href="home.html">Cadastrar</a>
+                </div>
+                              
+            </form>
+            
+            
+        </main> 
+        <script src="js/script1.js"></script>  
+</body>
+</html>

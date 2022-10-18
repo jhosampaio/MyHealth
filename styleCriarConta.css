@@ -1,0 +1,147 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Averia Libre';
+    src: url("fonts/averia-libre.ttf");
+}
+*{
+    font-family: 'Averia Libre';
+}
+:root{
+    --cor1: #8FE1D9;
+    --cor2: #ADD4D0;
+    --cor3: #419ED7;
+    --cor4: #49B976;
+    --cor5: #37BD6D;
+    --cor6: #FD7979;
+    --cor8: #ADD5D0;
+    --cor9: #FF8383;
+    --cor10: #3F92C5;
+}
+body, ul, li, p{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;    
+}
+a{
+    text-decoration: none;
+}
+/* CABEÇALHO */
+.header{
+    background-color: var(--cor1);
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    align-items: center;
+    height: 50px;
+    padding: 20px;
+}
+.logo > span {
+    font-size: 48px;
+    color: var(--cor3);
+}
+/* MAIN */
+.main{    
+    background-color: var(--cor2);   
+    background-size: 100% 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;     
+    height: calc(100vh - 90px);    
+}
+/* FORMS */
+.row{
+    display: flex;
+    flex-direction: row;    
+    margin-bottom:  10px;
+}
+.row > label{
+    width: 307px;
+    text-align: right;
+    margin-right: 10px;
+    color: white;
+    font-size: 18px;
+}
+.row > input{
+    color: var(--cor3);
+    font-size: 18px;
+    width: 400px;
+}
+input[type='radio']:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: white;
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+
+input[type='radio']:checked:after {
+    width: 15px;
+    height: 15px;
+    border-radius: 15px;
+    top: -2px;
+    left: -1px;
+    position: relative;
+    background-color: var(--cor3);
+    content: '';
+    display: inline-block;
+    visibility: visible;
+    border: 2px solid white;
+}
+input[type='date']{
+    width: 200px;
+}
+
+
+.row-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom:  10px;
+}
+   
+input::placeholder {
+    color: var(--cor3);
+}
+.lblsexo{
+    color: white;
+    font-size: 18px;
+    margin: 10px;
+}
+input::placeholder {
+    color: var(--cor3);
+}
+/* BOTOES */
+.btns{
+    display: flex;
+    justify-content: center;
+    margin-left: 200px;
+}
+.btn-cadastrar{  
+ 
+    padding: 10px 30px;
+    background-color: var(--cor4);
+    color: white;
+    border: 1px solid var(--cor5);
+}
+
+
+/* VALIDACOES*/
+
+
+
+.erro{
+    margin-left: 63px;
+    justify-content: center;
+    display: none;
+    color: var(--cor6);  
+    padding: 10px;
+    
+
+}

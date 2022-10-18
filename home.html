@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>My Health - Inicio</title>
+    <link rel="stylesheet" href="styleHome.css">
+    <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+    <script src="js/script1.js"></script>
+    
+</head>
+<body>    
+    <header class="header">
+        <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
+        <nav>
+            <ul class="menu">
+                <li>
+                    <a class="btn-minhasVacinas" href="home.html">Minhas Vacinas</a>
+                </li>
+                <li>
+                    <a class="btn-logout" href="index.html">Logout</a>
+                </li>
+            </ul>
+        </nav>
+    </header> 
+    
+        <main class="main">
+            <div class="pesquisa">
+                <input id="input-pesquisa" class="input-pesquisa" type="text" name="pesquisa" placeholder="PESQUISAR VACINA..." style="text-align: center"/>
+            </div>
+            <section id="listaVacinas" class="vacinas">                
+
+            </section>
+            <div class="row-button">                        
+                <a class="btn-novaVacina" href="novaVacina.html">Nova Vacina</a>
+            </div>
+        </main>
+
+        
+        <script>
+            vacinas = [
+                {
+                    titulo: 'BCG',
+                    dose: 'Dose unica',
+                    data: '19/12/2022',
+                    img: 'images/image-comprovante.png',
+                    proxData: 'Náo a proxima dose'
+                },
+                {
+                    titulo: 'Hepatite B',
+                    dose: '1a. dose',
+                    data: '11/08/2022',
+                    img: 'images/image-comprovante.png',
+                    proxData: 'Proxima dose em:11/10/2022'
+                },
+                {
+                    titulo: 'Rotavírus',
+                    dose: '1a. dose',
+                    data: '11/10/2022',
+                    img: 'images/image-comprovante.png',
+                    proxData: 'Proxima dose em:11/10/2023'
+                },
+                {
+                    titulo: 'Febre Amarela',
+                    dose: '1a. dose',
+                    data: '11/10/2022',
+                    img: 'images/image-comprovante.png',
+                    proxData: 'Proxima dose em: 11/10/2023'
+            },]
+
+            const cardVacina = (titulo, dose, data, img, proxData) => {
+                const divVacina = document.createElement("div")
+
+                const tituloVacina = document.createElement("h2")
+                tituloVacina.innerHTML = titulo
+
+                const doseVacina = document.createElement("div")
+                doseVacina.innerHTML = dose
+
+                const dataVacina = document.createElement("span")
+                dataVacina.innerHTML = data
+
+                const imgVacina = document.createElement("img")
+                imgVacina.src = img
+
+                const proxDataVacina = document.createElement("p")
+                proxDataVacina.innerHTML = proxData
+
+                divVacina.appendChild(tituloVacina)
+                divVacina.appendChild(doseVacina)
+                divVacina.appendChild(dataVacina)
+                divVacina.appendChild(imgVacina)
+                divVacina.appendChild(proxDataVacina)
+
+                divVacina.addEventListener("click", () => {
+                window.location.href = "editarVacina.html"
+            })
+
+                return divVacina
+            
+                }
+
+            for (v of vacinas) {
+                document.getElementById("listaVacinas").appendChild(cardVacina(v.titulo, v.dose, v.data, v.img, v.proxData))
+                
+                
+            }
+        </script>
+             
+</body>
+</html>

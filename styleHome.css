@@ -1,0 +1,147 @@
+@charset "UTF-8";
+@font-face {
+    font-family: 'Averia Libre';
+    src: url("fonts/averia-libre.ttf");
+}
+*{
+    font-family: 'Averia Libre';
+}
+:root{
+    --cor1: #8FE1D9;
+    --cor2: #ADD4D0;
+    --cor3: #419ED7;
+    --cor4: #49B976;
+    --cor5: #37BD6D;
+    --cor6: #FD7979;   
+    --cor7: #8B8B8B;
+}
+body, ul, li, p{
+    margin: 0px;
+    padding: 0px;
+    list-style: none;
+    background-color: var(--cor2); 
+    
+}
+a{
+    text-decoration: none;
+}
+
+.header{
+    background-color: var(--cor1);
+    display: flex;
+    justify-content: space-between;
+    width: auto;
+    align-items: center;
+    height: 50px;
+    padding: 20px;
+}
+.logo > span {
+    font-size: 48px;
+    color: var(--cor3);
+}
+.menu {
+    margin-left: 10px;
+    display: flex;   
+
+}
+.main{    
+    background-color: var(--cor2);  
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+        
+}
+.btn-minhasVacinas {
+    margin: 15px;  
+    padding: 10px;
+    background-color: var(--cor3);
+    color: white;
+    border: 1px solid var(--cor3);    
+}
+.btn-logout {    
+    padding: 10px;
+    background-color: var(--cor3);
+    color: white;
+    border: 1px solid var(--cor3);    
+}
+.pesquisa{
+    display: flex;
+    flex-direction: center;
+    justify-content: center;
+    padding: 10px;
+    
+}
+.input-pesquisa{
+    width: 90%;
+    background-image: url('images/icon.png');
+    background-repeat: no-repeat;    
+    background-position-x: 10px;
+    font-size: 24px;
+    
+}
+.vacinas{
+
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 0 auto;
+}
+
+.vacinas > div{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: white;
+    margin: 10px;
+    border-radius: 15px;
+    height: 310px;
+    cursor: pointer;
+    
+}
+.vacinas > div > h2{
+    color: var(--cor3);
+    text-align: center;
+}
+.vacinas > div > div{
+    background-color: var(--cor3);
+    color: white;
+    width: 100px;
+    text-align: center;
+    
+}
+.vacinas > div > span {
+    color:  #8B8B8B;
+    text-align: center;
+}
+.vacinas > div > img{
+    margin: 10px;
+}
+.vacinas > div > p {
+    background-color: white;
+    display: flex;
+    align-self: flex-end;
+    margin: 10px;
+    color: var(--cor6);
+
+}
+
+
+.btn-novaVacina{   
+    padding: 10px;
+    background-color: var(--cor4);
+    color: white;
+    border: 1px solid var(--cor5)
+}
+.direita{
+    color: var(--cor6);
+    margin: 10px;
+    display: flex;    
+    align-self: flex-end;
+}
+.row-button{
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    margin-bottom:  10px;
+
+}
