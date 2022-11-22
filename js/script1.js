@@ -1,13 +1,16 @@
+/*FIREBASE*/
+    
+
 /* VALIDAR SENHA */
 const validator = () =>{
     let password = document.getElementById("password").value
     let confirmpassword = document.getElementById("confirmpassword").value
 
     if (password != confirmpassword){
-        document.getElementById("error").style.display="flex"        
-        
+        document.getElementById("error").style.display="flex";
+        return false;
     }else{
-        document.getElementById("btn-cadastrar").setAttribute("href", "login.html")
+        return true;
     }
     
 }

@@ -7,7 +7,37 @@
     <title>My Health - Cadastro</title>
     <link rel="stylesheet" href="styleCriarConta.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
-    <script src="js/script1.js"></script>
+    <script type="module">
+
+        import {app, auth} from './js/firebase.js'
+        import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+
+        const getEmail = () => {
+            return document.getElementById("email").value
+        }
+
+        const getSenha = () => {
+            return document.getElementById("password").value
+        }
+
+        const cadastrarUsuario = () => {
+            
+            const email = getEmail()
+            const senha = getSenha()
+
+            createUserWithEmailAndPassword(auth, email, senha)
+            .then( (user) => {
+                console.log(JSON.stringify(user))
+            })
+            .catch( (error) => {
+                console.log(error.message)
+            })
+        }
+        window.onload = () => {
+            document.getElementById("btn-cadastrar").addEventListener('click', cadastrarUsuario)
+        }
+    </script>
     
 </head>
 <body>   
@@ -15,10 +45,10 @@
             <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
         </header>
         <main class="main">
-            <form id="form-registro"action="">
+            <form id="form-registro" action="login.html" onsubmit="return validator();">
                 <div class="row">
                     <label for="nome">Nome completo</label>
-                    <input id="nome" type="text" name="nome" placeholder="Jhonatan Sampaio"  required/>
+                    <input id="nome" type="text" name="nome" placeholder="Jhonatan Sampaio"  />
                 </div>
                 <div class="row">
                     <label for="sexo">Sexo</label>
@@ -35,19 +65,19 @@
                 </div>
                 <div class="row">
                     <label>E-mail</label>
-                    <input type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
+                    <input id="email" type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
                 </div>
                 <div class="row">
                     <label>Senha</label>
-                    <input id="password" type="password" name="password" placeholder="************" />
+                    <input id="password" type="password" name="password" placeholder="************" required/>
                 </div>
                 <div class="row">
                     <label>Repetir senha</label>
-                    <input id="confirmpassword" type="password" name="passwordConfirm" placeholder="************"/>
+                    <input id="confirmpassword" type="password" name="passwordConfirm" placeholder="************" required/>
                 </div>
                 <p id="error" class="erro" >Senhas nao conferem!</p>
                 <div class="btns">
-                    <a id="btn-cadastrar" class="btn-cadastrar" onclick="validator()" href='#'>Cadastrar</a>
+                    <button id="btn-cadastrar" type="submit" class="btn-cadastrar"">Cadastrar</button>
                 </div>
             </form>   
         </main> 

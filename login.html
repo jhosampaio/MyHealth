@@ -7,7 +7,26 @@
     <title>My Health - Login</title>
     <link rel="stylesheet" href="styleLogin.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
-    <script src="js/script1.js"></script>
+    <script type="module">
+        import {app, auth} from './js/firebase.js'
+        import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+
+        const getEmail = () => {
+            return document.getElementById("email").value
+        }
+
+        const getSenha = () => {
+            return document.getElementById("password").value
+        }
+
+        
+        window.onload = () => {
+            document.getElementById("btn-entrar").addEventListener('click', cadastrarUsuario)
+        }
+
+    </script>
+    
 </head>
 <body>    
         <header class="header">
@@ -25,7 +44,7 @@
                 </div>
             </form>
             <ul>
-                <li><a class="btn-entrar" href="home.html">Entrar</a></li>
+                <li><a class="btn-entrar">Entrar</a></li>
             </ul>
             <a href="recuperarSenha.html">
                 <h3 class="esquecer">Esqueci minha senha</h3>
