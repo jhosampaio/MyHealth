@@ -8,6 +8,24 @@
     <link rel="stylesheet" href="styleHome.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
     <script src="js/script1.js"></script>
+    <script type="module">
+        import {app, auth} from './js/firebase.js' 
+        import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"       
+
+        auth.onAuthStateChanged( function(user) {
+            if(!auth.currentUser){
+                inicial();
+            }
+        })
+        const deslogar = () => {
+            signOut(auth)
+        }
+                   
+        window.onload = () => {
+            document.getElementById("sair").addEventListener('click', deslogar)
+        }
+
+    </script>
     
 </head>
 <body>    
@@ -19,7 +37,7 @@
                     <a class="btn-minhasVacinas" href="home.html">Minhas Vacinas</a>
                 </li>
                 <li>
-                    <a class="btn-logout" href="index.html">Logout</a>
+                    <a class="btn-logout" id="sair" href="index.html">Logout</a>
                 </li>
             </ul>
         </nav>

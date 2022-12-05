@@ -6,21 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Health</title>
     <link rel="stylesheet" href="styleRecuperar.css">
+    <link rel="stylesheet" href="styleGlobal.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
     <script src="js/script1.js"></script>
+    <script type="module">
+        import {app, auth} from './js/firebase.js'
+        import {sendPasswordResetEmail} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+
+
+       const getEmail = () => {
+            return document.getElementById("email").value
+        }
+        const recuperarSenha = () => {
+            showLoading();
+            const email = getEmail()
+
+            sendPasswordResetEmail(auth, email)
+            .then(() => {
+                registrar();
+            })
+            .catch(() => {                
+                document.getElementById("lblAviso").innerHTML = "Usuário inválido"
+            })
+        }              
+
+        
+        window.onload = () => {
+            document.getElementById("btn-recuperar").addEventListener('click', recuperarSenha)
+        }
+
+    </script>
 </head>
 <body>
+    <div id="loading" class="loading">
+        <h1>Carregando...</h1>
+    </div>
     <header class="header">
         <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
     </header>
     <section class="main">
         <div class="inputs">
             <label>E-mail</label>
-            <input type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
+            <input id="email" type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
         </div>
+        <div>
+            <span id="lblAviso"> </span> 
+        </div> 
         <ul>
-            <li><a class="btn-recuperar" href="login.html">Redefinir senha</a></li>
+            <li><h3 class="btn-recuperar" id="btn-recuperar" >Redefinir senha</h3></li>
         </ul>
     </section>
+    <script src="js/script1.js"></script>
+    <script src="js/loading.js"></script>
 </body>
 </html>

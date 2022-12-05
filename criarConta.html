@@ -6,13 +6,25 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Health - Cadastro</title>
     <link rel="stylesheet" href="styleCriarConta.css">
+    <link rel="stylesheet" href="styleGlobal.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+
     <script type="module">
 
         import {app, auth} from './js/firebase.js'
         import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
 
+        /*PEGAR VALORES DO INPUT*/
+        const getNome = () => {
+            return document.getElementById("nome").value
+        }
 
+        const getSexo = () => {
+            return document.getElementById("sexo").value
+        }
+        const getDataNascimento = () => {
+            return document.getElementById("dataNascimento").value
+        }
         const getEmail = () => {
             return document.getElementById("email").value
         }
@@ -20,20 +32,21 @@
         const getSenha = () => {
             return document.getElementById("password").value
         }
-
+        /* FUNCAO PARA CADASTRAR USUARIO NO FIREBASE*/
         const cadastrarUsuario = () => {
-            
+            showLoading();
             const email = getEmail()
             const senha = getSenha()
 
             createUserWithEmailAndPassword(auth, email, senha)
-            .then( (user) => {
-                console.log(JSON.stringify(user))
+            .then( (user) => {                
+                registrar();
             })
             .catch( (error) => {
                 console.log(error.message)
             })
         }
+        /* EXECUTAR APOS A TELA SER CARREGADA */
         window.onload = () => {
             document.getElementById("btn-cadastrar").addEventListener('click', cadastrarUsuario)
         }
@@ -41,14 +54,17 @@
     
 </head>
 <body>   
+    <div id="loading" class="loading">
+        <h1>Carregando...</h1>
+    </div>
         <header class="header">
             <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
         </header>
         <main class="main">
-            <form id="form-registro" action="login.html" onsubmit="return validator();">
+            <form>
                 <div class="row">
                     <label for="nome">Nome completo</label>
-                    <input id="nome" type="text" name="nome" placeholder="Jhonatan Sampaio"  />
+                    <input id="nome" type="text" name="nome" placeholder="Jhonatan Sampaio" required/>
                 </div>
                 <div class="row">
                     <label for="sexo">Sexo</label>
@@ -61,11 +77,11 @@
                 </div>
                 <div class="row">
                     <label for="nascimento">Data nascimento</label>
-                    <input class="form-nascimento" type="date" name="nascimento" />
+                    <input id="dataNascimento" class="form-nascimento" type="date" name="nascimento" />
                 </div>
                 <div class="row">
                     <label>E-mail</label>
-                    <input id="email" type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" />
+                    <input id="email" type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" required/>
                 </div>
                 <div class="row">
                     <label>Senha</label>
@@ -75,13 +91,14 @@
                     <label>Repetir senha</label>
                     <input id="confirmpassword" type="password" name="passwordConfirm" placeholder="************" required/>
                 </div>
-                <p id="error" class="erro" >Senhas nao conferem!</p>
-                <div class="btns">
-                    <button id="btn-cadastrar" type="submit" class="btn-cadastrar"">Cadastrar</button>
-                </div>
+                <p id="error" class="erro" >Senhas nao conferem!</p>                
             </form>   
+            <div class="btns">
+                <button id="btn-cadastrar" class="btn-cadastrar" onclick="login">Cadastrar</button>
+            </div>
         </main> 
-        <script src="js/script1.js"></script>     
+        <script src="js/script1.js"></script>
+        <script src="js/loading.js"></script>    
         
 </body>
 </html>

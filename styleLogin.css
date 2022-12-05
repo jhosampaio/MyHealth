@@ -73,11 +73,18 @@ a{
 input::placeholder {
     color: var(--cor3);
 } 
-.btn-entrar{       
-    padding: 10px;
+.btns{
+    display: flex;
+    justify-content: center;
+    
+}
+.btn-entrar{  
+    cursor: pointer;
+    padding: 10px 30px;
     background-color: var(--cor4);
     color: white;
     border: 1px solid var(--cor5);
+    margin-top: 5px;
 }
 ul{
     margin: 40px;
@@ -85,4 +92,19 @@ ul{
 .esquecer{
     text-decoration: underline;
     color: var(--cor3);
+    cursor: pointer;
+}
+#lblAviso{
+    color: red;
+    margin: 5px;
+    padding: 10px;
+}
+.error{
+    margin-left: 63px;
+    justify-content: center;
+    display: none;
+    color: var(--cor6);  
+    padding: 10px;
+    
+
 }

@@ -124,7 +124,7 @@ input::placeholder {
     margin-left: 200px;
 }
 .btn-cadastrar{  
- 
+    cursor: pointer;
     padding: 10px 30px;
     background-color: var(--cor4);
     color: white;

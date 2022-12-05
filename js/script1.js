@@ -32,3 +32,26 @@ function importData() {
 }
 
 /********************************************************************/
+/*NAVEGACAO ENTRE PAGINAS*/
+function inicial(){
+    window.location.href = "index.html";
+}
+function login(){    
+    window.location.href = "home.html";
+}
+function criarConta(){
+    window.location.href = "criarConta.html";
+}
+function registrar(){
+    window.location.href = "login.html";
+}
+function recuperar(){    
+    window.location.href = "recuperarSenha.html";
+}
+function novaVacina(){
+    window.location.href = "novaVacina.html";
+}
+function editarVacina(){
+    window.location.href = "editarVacina.html";
+}
+/********************************************************************/

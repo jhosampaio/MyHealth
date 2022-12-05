@@ -6,13 +6,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Health - Login</title>
     <link rel="stylesheet" href="styleLogin.css">
+    <link rel="stylesheet" href="styleGlobal.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
+    
     <script type="module">
         import {app, auth} from './js/firebase.js'
-        import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+        import {signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
 
 
-        const getEmail = () => {
+       const getEmail = () => {
             return document.getElementById("email").value
         }
 
@@ -20,36 +22,69 @@
             return document.getElementById("password").value
         }
 
+        const autenticarUsuario = () => {
+            showLoading();
+            const email = getEmail()
+            const senha = getSenha()            
+
+            signInWithEmailAndPassword(auth, email, senha)
+            .then( (user) => {              
+                
+                    login();
+            })
+            .catch( (error) => {
+                
+                console.log(error.code)
+                if (error.code === "auth/wrong-password")
+                    document.getElementById("lblAviso").innerHTML = "Senha incorreta"
+                else if(error.code === "auth/user-not-found")
+                    document.getElementById("lblAviso").innerHTML = "Usuário inválido"
+            })
+            
+
+        }
+
         
         window.onload = () => {
-            document.getElementById("btn-entrar").addEventListener('click', cadastrarUsuario)
+            document.getElementById("btn-entrar").addEventListener('click', autenticarUsuario)
         }
 
     </script>
     
 </head>
-<body>    
+<body>  
+        <div id="loading" class="loading">
+            <h1>Carregando...</h1>
+        </div>
         <header class="header">
             <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
         </header>
         <main class="main">
-            <form action="">
+            <form>
                 <div class="row">
                     <label>E-mail</label>
-                    <input type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" required/>
+                    <input id="email" type="email" name="email" placeholder="jhonatansampaio@alunos.utfpr.edu.br" required/>
                 </div>
                 <div class="row">
                     <label>Senha</label>
-                    <input type="password" name="password" placeholder="************" required/>
-                </div>
+                    <input id="password" type="password" name="password" placeholder="************" required/>
+                </div>             
+                
             </form>
-            <ul>
-                <li><a class="btn-entrar">Entrar</a></li>
-            </ul>
-            <a href="recuperarSenha.html">
-                <h3 class="esquecer">Esqueci minha senha</h3>
-            </a>
+            <div>
+                <span id="lblAviso"> </span> 
+            </div> 
+            <div class="btns">
+                <button id="btn-entrar" class="btn-entrar">Entrar</button>
+            </div>    
+                   
+            
+            <h3 class="esquecer" onclick="recuperar()">Esqueci minha senha</h3>
+            
         </main>    
+        
+        <script src="js/loading.js"></script>
     
 </body>
+
 </html>
