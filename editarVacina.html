@@ -52,35 +52,34 @@
             const setProxDose = (proxData) => {
                 document.getElementById("proxDose").value = proxData
             }
+        }
+    })
 /**************************************************************************************************/
-            const excluir = (id) => {
-                let iduser = aut.currentUser.uid
-                    deleteDoc(doc(db, "usuarios/"+id+"/vacinas"))
-                    .then(() => {
-                        window.location.href = "home.html"
-                    })
-                    .catch((error) => {
-                        console.log("Erro ao excluir documento: " + error)
-                    })
-                }
+            // const excluir = (id) => {
+            //     let iduser = aut.currentUser.uid
+            //         deleteDoc(doc(db, "usuarios/"+id+"/vacinas"))
+            //         .then(() => {
+            //             window.location.href = "home.html"
+            //         })
+            //         .catch((error) => {
+            //             console.log("Erro ao excluir documento: " + error)
+            //         })
+            //     }
 
-                const salvar = (id) => {
-                    updateDoc(doc(db, "usuarios/"+id+"/vacinas"), {
-                        nome: getNome(),
-                        dataNascimento: getDataNascimento(),
-                        urlFoto: getUrlFoto()
-                    })
-                    .then(() => {
-                        window.location.href = "home.html"
-                    })
-                    .catch((error) => {
-                        console.log("Erro ao atualizar o documento: " + error)
-                    })
-                }
-            }
-        })
-    
-
+            //     const salvar = (id) => {
+            //         updateDoc(doc(db, "usuarios/"+id+"/vacinas"), {
+            //             nome: getNome(),
+            //             dataNascimento: getDataNascimento(),
+            //             urlFoto: getUrlFoto()
+            //         })
+            //         .then(() => {
+            //             window.location.href = "home.html"
+            //         })
+            //         .catch((error) => {
+            //             console.log("Erro ao atualizar o documento: " + error)
+            //         })
+            //     }
+/**************************************************************************************************/        
 function iniciaPopUp(popupID){
                 const popup = document.getElementById(popupID);
                 popup.classList.add('mostrar');
@@ -89,15 +88,11 @@ function iniciaPopUp(popupID){
                         popup.classList.remove('mostrar');
                     }                     
                 });
-            }           
-            
-            
+            }         
 /**************************************************************************************************/
-
         const deslogar = () => {
                 signOut(auth)
-        }
-    
+        } 
 /***************************************************************************************************/                   
         window.onload = () => {
             

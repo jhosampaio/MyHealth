@@ -58,7 +58,7 @@
 
             const fileRef = "images/" + uid()
 
-            uploadBytes(ref(storage, fileRef), file)
+            uploadBytes(ref(storage, fileRef), file)// ref = funcao do firebasestore, filerefef = diretorio dentro do firestore, file arquivo selecionado
                 .then((result) => {
                     console.log("Arquivo enviado com sucesso: " + result)
                     getDownloadURL(ref(storage, fileRef))
