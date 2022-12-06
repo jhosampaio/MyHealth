@@ -12,18 +12,104 @@
         import {app, auth} from './js/firebase.js' 
         import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"       
 
-        auth.onAuthStateChanged( function(user) {
+
+        var file = null;
+        var pathFoto = null;
+        var inputFile = null;
+        
+        auth.onAuthStateChanged( function(user){
             if(!auth.currentUser){
                 inicial();
+            }else{
+            const id = new URLSearchParams(window.location.search).get('id')    
+            
+            document.getElementById("btn-sim").addEventListener('click', () => {excluir(id)})
+/**********************************************************************************************/
+            const getDataDose = () => {
+                return document.getElementById("dataDose").value
+            }
+            const getNomeVacina = () => {
+                return document.getElementById("NomeVacina").value
+            }
+            const getDose = () => {
+                return document.querySelector("input[name='dose']:checked").value
+            }
+            /*const getImgVacina = () => {
+                return document.getElementById("fileImg").value
+            }*/
+            const getProxDose = () => {
+                return document.getElementById("proxDose").value
+            }
+
+            const setDataDose = (data) => {
+                document.getElementById("dataDose").value = data
+            }
+
+            const setNomeVacina = (nome) => {
+                document.getElementById("NomeVacina").value = nome
+            }
+
+            const setProxDose = (proxData) => {
+                document.getElementById("proxDose").value = proxData
+            }
+/**************************************************************************************************/
+            const excluir = (id) => {
+                let iduser = aut.currentUser.uid
+                    deleteDoc(doc(db, "usuarios/"+id+"/vacinas"))
+                    .then(() => {
+                        window.location.href = "home.html"
+                    })
+                    .catch((error) => {
+                        console.log("Erro ao excluir documento: " + error)
+                    })
+                }
+
+                const salvar = (id) => {
+                    updateDoc(doc(db, "usuarios/"+id+"/vacinas"), {
+                        nome: getNome(),
+                        dataNascimento: getDataNascimento(),
+                        urlFoto: getUrlFoto()
+                    })
+                    .then(() => {
+                        window.location.href = "home.html"
+                    })
+                    .catch((error) => {
+                        console.log("Erro ao atualizar o documento: " + error)
+                    })
+                }
             }
         })
+    
+
+function iniciaPopUp(popupID){
+                const popup = document.getElementById(popupID);
+                popup.classList.add('mostrar');
+                popup.addEventListener('click', (e) =>{
+                    if(e.target.id  == popupID || e.target.className == 'btn-cancelar'){
+                        popup.classList.remove('mostrar');
+                    }                     
+                });
+            }           
+            
+            
+/**************************************************************************************************/
+
         const deslogar = () => {
                 signOut(auth)
         }
-                   
+    
+/***************************************************************************************************/                   
         window.onload = () => {
+            
+            const btnExcluir = document.querySelector('.btn-Excluir');
+            btnExcluir.addEventListener('click', () => iniciaPopUp('conteudo-pop-up')); 
             document.getElementById("sair").addEventListener('click', deslogar)
-        }             
+            document.getElementById("btnImagem").addEventListener('click', () => {
+                inputFile = document.getElementById("fileImg")
+                inputFile.click()
+            })
+        }
+            
 
     </script>
     
@@ -49,11 +135,11 @@
                 </ul>  
                 <div class="row">
                     <label for="data">Data de vacinação</label>
-                    <input class="form-data" type="date" name="dataVacinacao" />
+                    <input class="form-data" id="dataDose" type="date" name="dataVacinacao" />
                 </div>
                 <div class="row">
                     <label for="vacina">Vacina</label>
-                    <input id="vacina" type="text" name="nome" placeholder="Hepatite B" />
+                    <input id="NomeVacina" type="text" name="nome" placeholder="Hepatite B" />
                 </div>
                 <div class="row">
                     <label class="label-radio" for="dose">Dose</label>
@@ -72,12 +158,15 @@
                 </div>
                 <div class="row">
                     <label for="comprovanteVacina">Comprovante de Vacina</label>
-                    <button class="btn-img" onclick="importData()">Selecionar Imagem...</button>
+                    <input id="fileImg" class="input-imagem" type="file" placeholder="Selecionar Imagen...">  
+                    <div id="btnImagem" class="btn-imagem">
+                        <p>Selecionar imagem...</p>
+                    </div>
                 </div>
                 
                 <div class="row">
                     <label for="data">Próxima vacinação</label>
-                    <input class="form-data" type="date" name="proximaVacinacao"/>              
+                    <input class="form-data" id="proxDose" type="date" name="proximaVacinacao"/>              
                 </div>  
                 <div class="row-button">                        
                     <a class="btn-Salvar" href="home.html">Salvar Alteraçoes</a>
@@ -89,34 +178,11 @@
             <div class="popup">
                 <h3>Tem certeza que deseja remover essa vacina ?</h3>                  
                 <form class="button-pop-up">
-                    <a href="home.html"><input type="button" class="btn-sim" value="Excluir"></a>
+                    <input type="button" id="btn-sim" class="btn-sim" value="Excluir">
                     <input type="button" class="btn-cancelar" value="Cancelar">
                 </form>
             </div>
         </div> 
-        <script>
-            function iniciaPopUp(popupID){
-                const popup = document.getElementById(popupID);
-                popup.classList.add('mostrar');
-                popup.addEventListener('click', (e) =>{
-                    if(e.target.id  == popupID || e.target.className == 'btn-cancelar'){
-                        popup.classList.remove('mostrar');
-                    }                     
-                });
-            }
-            const btnExcluir = document.querySelector('.btn-Excluir');
-            btnExcluir.addEventListener('click', () => iniciaPopUp('conteudo-pop-up'));  
-            
-            function importData() {
-                let input = document.createElement('input');
-                input.type = 'file';
-                input.onchange = _ => {
-    
-                let files =   Array.from(input.files);
-                console.log(files);
-                };
-                input.click();                
-                }
-        </script>    
+          
 </body>
 </html>

@@ -220,3 +220,16 @@ ul{
     display: inline-block;
     font-size: 16px;
 }
+.input-imagem{
+    display: none;
+}
+.btn-imagem {
+    padding: 6px;
+    display: flex;
+    border: none;
+    background-color: #419ED7;
+    color: white;
+    font-size: 20px;
+    width: 190px;
+    cursor: pointer;
+}

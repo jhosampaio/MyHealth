@@ -13,6 +13,8 @@
 
         import {app, auth} from './js/firebase.js'
         import {createUserWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+        import { db } from './js/firebase.js'
+        import { setDoc, collection, doc, } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
 
         /*PEGAR VALORES DO INPUT*/
         const getNome = () => {
@@ -20,7 +22,7 @@
         }
 
         const getSexo = () => {
-            return document.getElementById("sexo").value
+            return document.querySelector("input[name='sexo']:checked").value
         }
         const getDataNascimento = () => {
             return document.getElementById("dataNascimento").value
@@ -32,19 +34,47 @@
         const getSenha = () => {
             return document.getElementById("password").value
         }
+        const getPassword = () => {
+            return document.getElementById("confirmpassword").value
+        }
         /* FUNCAO PARA CADASTRAR USUARIO NO FIREBASE*/
         const cadastrarUsuario = () => {
             showLoading();
+            const nome = getNome()
+            const sexo = getSexo()
+            const dataNascimento = getDataNascimento()
             const email = getEmail()
             const senha = getSenha()
+            const confirmSenha = getPassword()
 
-            createUserWithEmailAndPassword(auth, email, senha)
-            .then( (user) => {                
-                registrar();
-            })
-            .catch( (error) => {
-                console.log(error.message)
-            })
+            if (senha != confirmSenha){
+                document.getElementById("error").style.display="flex";
+                hideLoading();
+            }else{
+
+                createUserWithEmailAndPassword(auth, email, senha)
+                .then( (result) => {  
+                    setDoc(doc(db, "usuarios", result.user.uid),{
+                        nome: nome,
+                        sexo: sexo,
+                        dataNascimento: dataNascimento,
+                        email: email,
+                        senha: senha
+                    })
+                    .then((resultTab) =>{
+                        registrar();
+                    })
+                    .catch((error) => {
+                        hideLoading();
+                        console.log("Erro ao persistir dados: " + error)
+                    })            
+                    
+                })
+                .catch( (error) => {
+                    hideLoading();
+                    console.log(error.message)
+                })
+            }
         }
         /* EXECUTAR APOS A TELA SER CARREGADA */
         window.onload = () => {
@@ -94,7 +124,7 @@
                 <p id="error" class="erro" >Senhas nao conferem!</p>                
             </form>   
             <div class="btns">
-                <button id="btn-cadastrar" class="btn-cadastrar" onclick="login">Cadastrar</button>
+                <button id="btn-cadastrar" class="btn-cadastrar">Cadastrar</button>
             </div>
         </main> 
         <script src="js/script1.js"></script>

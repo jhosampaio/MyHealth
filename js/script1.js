@@ -1,7 +1,7 @@
 /*FIREBASE*/
     
 
-/* VALIDAR SENHA */
+/* VALIDAR SENHA 
 const validator = () =>{
     let password = document.getElementById("password").value
     let confirmpassword = document.getElementById("confirmpassword").value
@@ -14,12 +14,12 @@ const validator = () =>{
     }
     
 }
-/***************************************************************************************/
+****************************************************************************************/
 /* pop-up */
 
 /**************************************************************************************/
 
-/*selecionar imagem*/
+/*selecionar imagem
 function importData() {
     let input = document.createElement('input');
     input.type = 'file';
@@ -27,8 +27,9 @@ function importData() {
 
     let files =   Array.from(input.files);
     console.log(files);
-    };
-    input.click();                
+    };    
+    input.click();
+
 }
 
 /********************************************************************/

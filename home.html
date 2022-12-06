@@ -9,20 +9,105 @@
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
     <script src="js/script1.js"></script>
     <script type="module">
-        import {app, auth} from './js/firebase.js' 
-        import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"       
+        import {app, auth, db} from './js/firebase.js' 
+        import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+        import {query, collection, onSnapshot, where} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"       
 
+        const vacinas = []
         auth.onAuthStateChanged( function(user) {
             if(!auth.currentUser){
                 inicial();
+            }else{    
+                //barra pesquisa
+                document.getElementById("input-pesquisa").addEventListener('keyup', () => {
+                    const searchString = document.getElementById("input-pesquisa").value.trim()
+                    showCardsVacinas(vacinas.filter(vacina => vacina.nome.includes(searchString)))
+                })
+                
+
+
+                const carregarVacinas = () => {
+
+                let id = auth.currentUser.uid
+                const q = query( collection(db, "usuarios/"+id+"/vacinas"))
+
+                onSnapshot(q, (results) => {
+                    results.forEach((documento) => {
+                        vacinas.push({
+                            id: documento.id,
+                            data: documento.data().DataVacina,
+                            nome: documento.data().NomeVacina,
+                            dose: documento.data().Dose,  
+                            imagem: documento.data().Comprovante,                          
+                            proximaDose:  documento.data().ProximaVacina,
+                        })
+                        showCardsVacinas(vacinas)
+                    })
+
+                })
+                }
+
+                carregarVacinas()
             }
         })
-        const deslogar = () => {
-            signOut(auth)
+
+        const showCardsVacinas = (lista) => {
+            document.getElementById("vacinas").innerHTML = ""
+            lista.forEach((documento) => {
+                cardVacina(documento.nome, documento.dose, documento.data, documento.imagem, documento.proximaDose, documento.id)
+                console.log(lista)
+            })
         }
+        
+            const cardVacina = (nome, dose, data,imagem, proximaDose,id) => {
+
+                const divVacina = document.createElement("div")
+
+                const NomeVacina = document.createElement("h2")
+                NomeVacina.innerHTML = nome
+
+                const Dose = document.createElement("div")
+                Dose.innerHTML = dose
+
+                const DataVacina = document.createElement("span")
+                DataVacina.innerHTML = data     
+                
+                const ComprovanteImagem = document.createElement("img")
+                ComprovanteImagem.src = imagem
+
+                const ProximaVacina = document.createElement("p")
+                ProximaVacina.innerHTML = proximaDose
+
+                const inputHiddenId = document.createElement("input")
+                inputHiddenId.type = 'hidden'
+                inputHiddenId.hidden = id
+
+                divVacina.appendChild(NomeVacina)
+                divVacina.appendChild(Dose)
+                divVacina.appendChild(DataVacina) 
+                divVacina.appendChild(ComprovanteImagem)               
+                divVacina.appendChild(ProximaVacina)
+                divVacina.appendChild(inputHiddenId)
+
+                divVacina.addEventListener("click", () => {
+                    window.location.href = "editarVacina.html"
+
+                
+            })
+            
+            document.getElementById("vacinas").appendChild(divVacina)
+               
+            
+            }
+
+                const deslogar = () => {
+                signOut(auth)
+            }   
                    
         window.onload = () => {
             document.getElementById("sair").addEventListener('click', deslogar)
+            
+        
         }
 
     </script>
@@ -47,84 +132,14 @@
             <div class="pesquisa">
                 <input id="input-pesquisa" class="input-pesquisa" type="text" name="pesquisa" placeholder="PESQUISAR VACINA..." style="text-align: center"/>
             </div>
-            <section id="listaVacinas" class="vacinas">                
+            <section id="vacinas" class="vacinas">                
 
             </section>
             <div class="row-button">                        
                 <a class="btn-novaVacina" href="novaVacina.html">Nova Vacina</a>
             </div>
-        </main>
-
+        </main>      
         
-        <script>
-            vacinas = [
-                {
-                    titulo: 'BCG',
-                    dose: 'Dose unica',
-                    data: '19/12/2022',
-                    img: 'images/image-comprovante.png',
-                    proxData: 'Náo a proxima dose'
-                },
-                {
-                    titulo: 'Hepatite B',
-                    dose: '1a. dose',
-                    data: '11/08/2022',
-                    img: 'images/image-comprovante.png',
-                    proxData: 'Proxima dose em:11/10/2022'
-                },
-                {
-                    titulo: 'Rotavírus',
-                    dose: '1a. dose',
-                    data: '11/10/2022',
-                    img: 'images/image-comprovante.png',
-                    proxData: 'Proxima dose em:11/10/2023'
-                },
-                {
-                    titulo: 'Febre Amarela',
-                    dose: '1a. dose',
-                    data: '11/10/2022',
-                    img: 'images/image-comprovante.png',
-                    proxData: 'Proxima dose em: 11/10/2023'
-            },]
-
-            const cardVacina = (titulo, dose, data, img, proxData) => {
-                const divVacina = document.createElement("div")
-
-                const tituloVacina = document.createElement("h2")
-                tituloVacina.innerHTML = titulo
-
-                const doseVacina = document.createElement("div")
-                doseVacina.innerHTML = dose
-
-                const dataVacina = document.createElement("span")
-                dataVacina.innerHTML = data
-
-                const imgVacina = document.createElement("img")
-                imgVacina.src = img
-
-                const proxDataVacina = document.createElement("p")
-                proxDataVacina.innerHTML = proxData
-
-                divVacina.appendChild(tituloVacina)
-                divVacina.appendChild(doseVacina)
-                divVacina.appendChild(dataVacina)
-                divVacina.appendChild(imgVacina)
-                divVacina.appendChild(proxDataVacina)
-
-                divVacina.addEventListener("click", () => {
-                window.location.href = "editarVacina.html"
-            })
-
-                return divVacina
-            
-                }
-
-            for (v of vacinas) {
-                document.getElementById("listaVacinas").appendChild(cardVacina(v.titulo, v.dose, v.data, v.img, v.proxData))
-                
-                
-            }
-        </script>
              
 </body>
 </html>

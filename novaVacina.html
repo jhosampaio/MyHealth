@@ -6,11 +6,22 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>My Health - Nova Vacina</title>
     <link rel="stylesheet" href="styleNovaVacina.css">
+    <link rel="stylesheet" href="styleGlobal.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
     <script src="js/script1.js"></script>
+    <script src="js/loading.js"></script>
+
+
+
     <script type="module">
         import {app, auth} from './js/firebase.js' 
-        import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"       
+        import {signOut} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"     
+        import { db, storage } from './js/firebase.js'
+        import { addDoc, collection } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+        import { uploadBytes, ref, getDownloadURL } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
+
+        var file = null;
+        var inputFile = null;
 
         auth.onAuthStateChanged( function(user) {
             if(!auth.currentUser){
@@ -20,15 +31,84 @@
         const deslogar = () => {
                 signOut(auth)
         }
-                   
+/*****************************************************************************************************/
+        const getDataDose = () => {
+            return document.getElementById("dataDose").value
+        }
+        const getNomeVacina = () => {
+            return document.getElementById("NomeVacina").value
+        }
+        const getDose = () => {
+            return document.querySelector("input[name='dose']:checked").value
+        }
+        const getImgVacina = () => {
+            return document.getElementById("fileImg").value
+        }
+        const getProxDose = () => {
+            return document.getElementById("proxDose").value
+        }
+        const uid = () => {
+            const id = Date.now().toString(16) + Math.random().toString(16)
+            return id.replace(/\./g, '')
+        }
+/*************************************************************************************************/
+        const cadastrar = () => {
+            showLoading();
+            let id = auth.currentUser.uid
+
+            const fileRef = "images/" + uid()
+
+            uploadBytes(ref(storage, fileRef), file)
+                .then((result) => {
+                    console.log("Arquivo enviado com sucesso: " + result)
+                    getDownloadURL(ref(storage, fileRef))
+                        .then((url) => {                            
+                            addDoc(collection(db, "usuarios/" + id + "/vacinas"), {
+                                DataVacina: getDataDose(),
+                                NomeVacina: getNomeVacina(),
+                                Dose: getDose(),
+                                Comprovante: url,
+                                ProximaVacina: getProxDose(),
+                                pathFoto: fileRef
+                            })
+                                .then((result) => {                                   
+                                    
+                                    login();
+                                })
+                                .catch((error) => {
+                                    console.log("Erro ao persistir dados: " + error)
+                                })
+                            })
+                        .catch((error) => {
+                            console.log("Erro ao recuperar URL de download: " + error)
+                        })
+                })
+                .catch((error) => {
+                    console.log("Erro ao enviar arquivo: " + error)
+                })
+            }
+/**************************************************************************************************/
+
+
         window.onload = () => {
+            document.getElementById("btnImagem").addEventListener('click', () => {
+                inputFile = document.getElementById("fileImg")
+                inputFile.click()
+            })
+            document.getElementById("btn-cadastrar").addEventListener('click', cadastrar)
+            document.getElementById("fileImg").addEventListener('change', function (event) {
+                file = event.target.files[0]
+            })
             document.getElementById("sair").addEventListener('click', deslogar)
         }
 
     </script>
-    
+ 
 </head>
 <body>    
+    <div id="loading" class="loading">
+        <h1>Carregando...</h1>
+    </div>
         <header class="header">
             <a class="logo" href="index.html"><img src="images/icon-vaccine.png" alt=""><span>My Health</span></a>
             <nav>
@@ -46,38 +126,43 @@
             <form action="">
                 <div class="row">
                     <label for="data">Data de vacinação</label>
-                    <input class="form-data" type="date" name="dataVacinacao" />
+                    <input class="form-data" type="date" id="dataDose" name="dataVacinacao" />
                 </div>
                 <div class="row">
                     <label for="vacina">Vacina</label>
-                    <input class="inputVacina" id="vacina" type="text" name="nome" placeholder="Hepatite B" />
+                    <input class="inputVacina" id="NomeVacina" type="text" name="nome" placeholder="Hepatite B" />
                 </div>
                 <div class="row">
                     <label for="dose">Dose</label>
                     <div id="dose">
-                      <input id="primeiraDose" type="radio" name="dose" value="primeiraDose" />
+                      <input id="primeiraDose" type="radio" name="dose" value="Primeira Dose" />
                       <label class="lblDose" for="primeiraDose">1a. Dose</label>
-                      <input id="segundaDose" type="radio" name="dose" value="segundaDose" />
+                      <input id="segundaDose" type="radio" name="dose" value="Segunda Dose" />
                       <label class="lblDose" for="segundaDose">2a. Dose</label>
-                      <input id="terceiraDose" type="radio" name="dose" value="terceiraDose" />
+                      <input id="terceiraDose" type="radio" name="dose" value="Terceira Dose" />
                       <label class="lblDose" for="terceiraDose">3a. Dose</label>
-                      <input id="quartaDose" type="radio" name="dose" value="quartaDose" />
+                      <input id="quartaDose" type="radio" name="dose" value="Quarta Dose" />
                       <label class="lblDose" for="quartaDose">4a. Dose</label>
                     </div>
                 </div>
                 <div class="row">
+                    
                     <label for="comprovanteVacina">Comprovante de Vacina</label>
-                    <button class="btn-img" onclick="importData()">Selecionar Imagem...</button>
+                    <input id="fileImg" class="input-imagem" type="file" placeholder="Selecionar Imagen...">  
+                    <div id="btnImagem" class="btn-imagem">
+                        <p>Selecionar imagem...</p>
+                    </div>                  
                 </div>
                 <div class="row">
                     <label for="data">Próxima vacinação</label>
-                    <input class="form-data" type="date" name="proximaVacinacao" />
+                    <input class="form-data" id="proxDose" type="date" name="proximaVacinacao" />
                 </div> 
-                <div class="row-button">                        
-                    <a class="btn-cadastrar" href="home.html">Cadastrar</a>
-                </div>
+                
                               
             </form>
+            <div class="row-button">                        
+                <button id="btn-cadastrar" class="btn-cadastrar">Cadastrar</button>
+            </div>
             
             
         </main> 

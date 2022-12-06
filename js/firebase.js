@@ -1,6 +1,8 @@
 
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-app.js";
 import { getAuth } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
+import { initializeFirestore } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-firestore.js"
+import { getStorage } from "https://www.gstatic.com/firebasejs/9.14.0/firebase-storage.js";
 
 const firebaseConfig = {
   apiKey: "AIzaSyBKWBALJ2kcO5dLjcIPeskIbjbEE33ri74",
@@ -14,5 +16,7 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig); // REFERENCIA AO PROJETO DO FIREBASE
 const auth = getAuth(app); // REFERENCIA AO MODULO DE AUTENTICACAO DO APP FIREBASE
+const db = initializeFirestore(app, {experimentalForceLongPolling: true})
+const storage = getStorage(app)
 
-export {app, auth}
+export {app, auth, db, storage}
