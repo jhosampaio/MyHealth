@@ -72,6 +72,7 @@
                 })
                 .catch( (error) => {
                     hideLoading();
+                    document.getElementById("error2").style.display="flex";
                     console.log(error.message)
                 })
             }
@@ -121,7 +122,8 @@
                     <label>Repetir senha</label>
                     <input id="confirmpassword" type="password" name="passwordConfirm" placeholder="************" required/>
                 </div>
-                <p id="error" class="erro" >Senhas nao conferem!</p>                
+                <p id="error" class="erro" >Senhas nao conferem!</p>
+                <p id="error2" class="erro">Email ja cadastrado!</p>                 
             </form>   
             <div class="btns">
                 <button id="btn-cadastrar" class="btn-cadastrar">Cadastrar</button>
