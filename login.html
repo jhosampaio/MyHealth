@@ -8,11 +8,11 @@
     <link rel="stylesheet" href="styleLogin.css">
     <link rel="stylesheet" href="styleGlobal.css">
     <link rel="shortcut icon" href="images/icon-vaccine.png" type="image/x-icon">
-    
+    <script src="js/script1.js"></script>
+    <script src="js/loading.js"></script>
     <script type="module">
         import {app, auth} from './js/firebase.js'
-        import {signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"
-
+        import {signInWithEmailAndPassword} from "https://www.gstatic.com/firebasejs/9.14.0/firebase-auth.js"        
 
        const getEmail = () => {
             return document.getElementById("email").value
@@ -80,9 +80,9 @@
             
             <h3 class="esquecer" onclick="recuperar()">Esqueci minha senha</h3>
             
-        </main>    
+        </main>  
         
-        <script src="js/loading.js"></script>
+        
     
 </body>
 
